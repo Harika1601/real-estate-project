@@ -1,0 +1,57 @@
+.about-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+  font-family: Arial, sans-serif;
+}
+
+/* hero */
+.about-hero {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.about-hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.about-hero p {
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+/* content */
+.about-content {
+  max-width: 900px;
+  margin: auto;
+  padding: 50px 20px;
+  line-height: 1.7;
+}
+
+.about-content h2 {
+  margin-top: 30px;
+  color: #2c3e50;
+}
+
+.about-content ul {
+  margin-top: 10px;
+}
+
+/* back button */
+.back-home-btn {
+  margin-top: 40px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 8px;
+  background: #2ecc71;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.back-home-btn:hover {
+  background: #27ae60;
+}

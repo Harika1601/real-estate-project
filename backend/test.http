@@ -1,0 +1,31 @@
+### 🟢 Test server
+GET http://localhost:5000/test
+
+
+### 🟢 Get all properties
+GET http://localhost:5000/api/properties
+
+
+### 🟢 Add property
+POST http://localhost:5000/api/properties
+Content-Type: application/json
+
+{
+  "title": "VS Code House",
+  "category": "house",
+  "price": "30,00,000 INR",
+  "address": "Hyderabad",
+  "bhk": "3 BHK",
+  "bathrooms": "2 Bathrooms",
+  "area": "250 Sq Yards",
+  "age": "2 Years Old",
+  "status": "Sale",
+  "paymentOptions": ["EMI"],
+  "contact": {
+    "name": "VS Tester",
+    "phone": "+91 9999999999",
+    "email": "vscode@test.com"
+  },
+  "description": "Added from VS Code",
+  "images": ["/images/test.png"]
+}
