@@ -1,37 +1,19 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Header from "./Components/Header";
-import PropertyList from "./Components/PropertyList";
-import Properties from "./Components/properties";
-
+import HomePage from "./Components/HomePage";
 import Buyers from "./Components/BuyersPage";
 import Tenants from "./Components/TenantsPage";
 import Owners from "./Components/OwnersPage";
 import About from "./Components/AboutPage";
 import Contact from "./Components/ContactPage";
 
-import PaymentPage from "./Components/PaymentPage";
-import PaymentOptionsPage from "./Components/PaymentOptionsPage";
+import LoginPage from "./Components/LoginPage";
+import SignupPage from "./Components/SignupPage";
 
 function App() {
 
-  const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-
-  const filteredProperties = Properties.filter((property) => {
-
-    const categoryMatch =
-      selectedCategory === "all" ||
-      property.category === selectedCategory;
-
-    const searchMatch =
-      property.title.toLowerCase().includes(search.toLowerCase()) ||
-      property.address.toLowerCase().includes(search.toLowerCase());
-
-    return categoryMatch && searchMatch;
-
-  });
 
   return (
     <Router>
@@ -42,28 +24,23 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <Header
-                search={search}
-                setSearch={setSearch}
-                setSelectedCategory={setSelectedCategory}
-              />
-
-              <PropertyList properties={filteredProperties} />
-            </>
+            <HomePage
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           }
         />
 
-        {/* OTHER PAGES */}
+        {/* NAVIGATION PAGES */}
         <Route path="/buyers" element={<Buyers />} />
         <Route path="/tenants" element={<Tenants />} />
         <Route path="/owners" element={<Owners />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* PAYMENT */}
-        <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/payment-options" element={<PaymentOptionsPage />} />
+        {/* AUTH PAGES */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
       </Routes>
 
