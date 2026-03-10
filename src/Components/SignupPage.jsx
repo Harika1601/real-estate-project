@@ -33,14 +33,28 @@ const data = await res.json();
 
 if(res.ok){
 
-Swal.fire({
+await Swal.fire({
 icon:"success",
 title:"Signup Successful 🎉",
 text:"Your account has been created",
 confirmButtonColor:"#5a46ff"
-}).then(()=>{
-navigate("/login");
 });
+
+navigate("/login");
+
+}else{
+
+// ⭐ If user already exists
+if(data.message === "User already exists"){
+
+await Swal.fire({
+icon:"info",
+title:"Account Already Exists",
+text:"Please login to continue",
+confirmButtonColor:"#5a46ff"
+});
+
+navigate("/login");
 
 }else{
 
@@ -49,6 +63,8 @@ icon:"error",
 title:"Signup Failed",
 text:data.message || "Something went wrong"
 });
+
+}
 
 }
 
@@ -100,7 +116,9 @@ onChange={(e)=>setPassword(e.target.value)}
 required
 />
 
-<button type="submit">Signup</button>
+<button type="submit">
+Signup
+</button>
 
 </form>
 

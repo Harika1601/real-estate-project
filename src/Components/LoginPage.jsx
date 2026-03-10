@@ -31,20 +31,21 @@ const data = await res.json();
 
 if(res.ok){
 
-Swal.fire({
+await Swal.fire({
 icon:"success",
 title:"Login Successful 🎉",
+text:"Welcome back!",
 confirmButtonColor:"#5a46ff"
-}).then(()=>{
-navigate("/home");
 });
+
+navigate("/home");
 
 }else{
 
 Swal.fire({
 icon:"error",
 title:"Login Failed",
-text:data.message
+text:data.message || "Invalid credentials"
 });
 
 }

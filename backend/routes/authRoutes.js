@@ -9,10 +9,6 @@ router.post("/signup", async (req, res) => {
 
     const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields required" });
-    }
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -31,13 +27,13 @@ router.post("/signup", async (req, res) => {
 
   } catch (error) {
 
-    console.log("Signup Error:", error);
-
+    console.log(error);
     res.status(500).json({ message: "Server error" });
 
   }
 
 });
+
 
 /* LOGIN */
 router.post("/login", async (req, res) => {
@@ -52,6 +48,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
+    // ⭐ Compare password correctly
     if (user.password !== password) {
       return res.status(400).json({ message: "Incorrect password" });
     }
@@ -63,8 +60,7 @@ router.post("/login", async (req, res) => {
 
   } catch (error) {
 
-    console.log("Login Error:", error);
-
+    console.log(error);
     res.status(500).json({ message: "Server error" });
 
   }
