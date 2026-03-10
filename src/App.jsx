@@ -1,51 +1,47 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import SignupPage from "./Components/SignupPage";
+import LoginPage from "./Components/LoginPage";
 import HomePage from "./Components/HomePage";
+
 import Buyers from "./Components/BuyersPage";
 import Tenants from "./Components/TenantsPage";
 import Owners from "./Components/OwnersPage";
 import About from "./Components/AboutPage";
 import Contact from "./Components/ContactPage";
 
-import LoginPage from "./Components/LoginPage";
-import SignupPage from "./Components/SignupPage";
+import PaymentPage from "./Components/PaymentPage";
+import PaymentOptionsPage from "./Components/PaymentOptionsPage";
 
 function App() {
 
-  const [selectedCategory, setSelectedCategory] = useState("all");
+return (
 
-  return (
-    <Router>
+<BrowserRouter>
 
-      <Routes>
+<Routes>
 
-        {/* HOME PAGE */}
-        <Route
-          path="/"
-          element={
-            <HomePage
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />
-          }
-        />
+<Route path="/" element={<SignupPage />} />
+<Route path="/signup" element={<SignupPage />} />
+<Route path="/login" element={<LoginPage />} />
 
-        {/* NAVIGATION PAGES */}
-        <Route path="/buyers" element={<Buyers />} />
-        <Route path="/tenants" element={<Tenants />} />
-        <Route path="/owners" element={<Owners />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+<Route path="/home" element={<HomePage />} />
 
-        {/* AUTH PAGES */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+<Route path="/payment" element={<PaymentPage />} />
+<Route path="/payment-options" element={<PaymentOptionsPage />} />
 
-      </Routes>
+<Route path="/buyers" element={<Buyers />} />
+<Route path="/tenants" element={<Tenants />} />
+<Route path="/owners" element={<Owners />} />
+<Route path="/about" element={<About />} />
+<Route path="/contact" element={<Contact />} />
 
-    </Router>
-  );
+</Routes>
+
+</BrowserRouter>
+
+);
+
 }
 
 export default App;

@@ -1,103 +1,128 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "./ContactPage.css";
 
 const ContactPage = () => {
+
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [message,setMessage] = useState("");
 
-  const [success, setSuccess] = useState(false);
-
-  // handle change
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  // handle submit
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    if (!form.name || !form.email || !form.message) {
-      alert("⚠️ Please fill all fields");
-      return;
-    }
-
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+
+      const res = await fetch("http://localhost:5000/api/contact",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify(form),
+        body:JSON.stringify({
+          name,
+          email,
+          message
+        })
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      console.log("📩 Contact response:", data);
+      if(res.ok){
 
-      setSuccess(true);
-      setForm({ name: "", email: "", message: "" });
+        await Swal.fire({
+          icon:"success",
+          title:"Message Sent Successfully 📩",
+          text:"Our team will contact you soon.",
+          confirmButtonColor:"#22c55e",
+          confirmButtonText:"OK"
+        });
 
-    } catch (error) {
-      console.error("❌ Contact error:", error);
-      alert("Something went wrong");
+        setName("");
+        setEmail("");
+        setMessage("");
+
+      }else{
+
+        Swal.fire({
+          icon:"error",
+          title:"Message Failed",
+          text:data.message || "Something went wrong",
+          confirmButtonColor:"#ef4444"
+        });
+
+      }
+
+    } catch(error){
+
+      console.error(error);
+
+      Swal.fire({
+        icon:"error",
+        title:"Server Error",
+        text:"Unable to connect to server",
+        confirmButtonColor:"#ef4444"
+      });
+
     }
+
+  };
+
+  const goHome = () => {
+    navigate("/home");
   };
 
   return (
-    <div className="contact-container">
-      <div className="contact-card">
-        <h2>📞 Contact Us</h2>
-        <p className="contact-sub">
-          We'd love to help you find your dream property.
-        </p>
 
-        {success && (
-          <div className="success-msg">
-            ✅ Message sent successfully!
-          </div>
-        )}
+    <div className="contact-page">
+
+      <button className="back-btn" onClick={goHome}>
+        ⬅ Back to Home
+      </button>
+
+      <div className="contact-card">
+
+        <h2>📞 Contact Us</h2>
+        <p>We'd love to help you find your dream property.</p>
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="text"
-            name="name"
             placeholder="Your Name"
-            value={form.name}
-            onChange={handleChange}
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
+            required
           />
 
           <input
             type="email"
-            name="email"
             placeholder="Your Email"
-            value={form.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            required
           />
 
           <textarea
-            name="message"
             placeholder="Your Message"
-            rows="4"
-            value={form.message}
-            onChange={handleChange}
+            value={message}
+            onChange={(e)=>setMessage(e.target.value)}
+            required
           />
 
-          <button type="submit" className="send-btn">
+          <button type="submit">
             🚀 Send Message
           </button>
+
         </form>
 
-        <button className="back-home-btn" onClick={() => navigate("/")}>
-          ⬅ Back to Home
-        </button>
       </div>
+
     </div>
+
   );
 };
 

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const PaymentOptionsPage = () => {
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -17,7 +18,9 @@ const PaymentOptionsPage = () => {
   }
 
   const handlePay = async () => {
+
     try {
+
       setLoading(true);
 
       const cleanAmount = Number(
@@ -43,7 +46,6 @@ const PaymentOptionsPage = () => {
 
       if (res.ok) {
 
-        // ⭐ PROFESSIONAL SUCCESS POPUP
         await Swal.fire({
           icon: "success",
           title: "Payment Successful 🎉",
@@ -52,7 +54,8 @@ const PaymentOptionsPage = () => {
           confirmButtonText: "Go Home",
         });
 
-        navigate("/");
+        // ✅ GO TO HOME PAGE
+        navigate("/home");
 
       } else {
 
@@ -75,23 +78,32 @@ const PaymentOptionsPage = () => {
       });
 
     } finally {
+
       setLoading(false);
+
     }
   };
 
   return (
+
     <div style={styles.container}>
+
       <div style={styles.card}>
+
         <h2 style={{ marginBottom: 10 }}>💳 Payment Options</h2>
 
         <h3>{property.title}</h3>
+
         <p><strong>Price:</strong> {property.price}</p>
+
         <p><strong>Location:</strong> {property.address}</p>
+
         <p><strong>Payment Type:</strong> {paymentType}</p>
 
         <h4 style={{ marginTop: 20 }}>Select Payment Method</h4>
 
         <div style={styles.methodBox}>
+
           <button
             style={{
               ...styles.methodBtn,
@@ -124,6 +136,7 @@ const PaymentOptionsPage = () => {
           >
             💵 Cash
           </button>
+
         </div>
 
         <button
@@ -135,24 +148,31 @@ const PaymentOptionsPage = () => {
         </button>
 
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
           style={styles.backBtn}
         >
           ⬅ Back to Home
         </button>
+
       </div>
+
     </div>
+
   );
+
 };
 
 export default PaymentOptionsPage;
 
+
 const styles = {
+
   container: {
     padding: "40px 20px",
     background: "#f4f6fb",
     minHeight: "100vh",
   },
+
   card: {
     maxWidth: 520,
     margin: "auto",
@@ -162,6 +182,7 @@ const styles = {
     boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
     textAlign: "center",
   },
+
   methodBox: {
     display: "flex",
     gap: 10,
@@ -169,6 +190,7 @@ const styles = {
     justifyContent: "center",
     flexWrap: "wrap",
   },
+
   methodBtn: {
     padding: "10px 18px",
     borderRadius: 8,
@@ -176,6 +198,7 @@ const styles = {
     cursor: "pointer",
     fontWeight: "600",
   },
+
   payBtn: {
     width: "100%",
     padding: "14px",
@@ -187,6 +210,7 @@ const styles = {
     fontWeight: "bold",
     cursor: "pointer",
   },
+
   backBtn: {
     marginTop: 12,
     width: "100%",
@@ -197,4 +221,5 @@ const styles = {
     cursor: "pointer",
     fontWeight: 600,
   },
+
 };

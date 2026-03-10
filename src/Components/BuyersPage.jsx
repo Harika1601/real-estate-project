@@ -6,8 +6,7 @@ const BuyersPage = () => {
 
   return (
     <div style={styles.wrapper}>
-      {/* 🔙 Back Button */}
-      <button style={styles.backBtn} onClick={() => navigate("/")}>
+      <button style={styles.backBtn} onClick={() => navigate("/home")}>
         ← Back to Home
       </button>
 
@@ -33,7 +32,6 @@ const BuyersPage = () => {
   );
 };
 
-/* 🎨 STYLES */
 const styles = {
   wrapper: {
     minHeight: "100vh",
@@ -58,29 +56,16 @@ const styles = {
     borderRadius: "14px",
     boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
   },
-  title: {
-    marginBottom: "10px",
-    color: "#1a2b49",
-  },
-  desc: {
-    color: "#555",
-    marginBottom: "25px",
-  },
+  title: { marginBottom: "10px", color: "#1a2b49" },
+  desc: { color: "#555", marginBottom: "25px" },
   card: {
     background: "#fff7f3",
     padding: "25px",
     borderRadius: "12px",
     border: "1px solid #ffe2d6",
   },
-  cardTitle: {
-    marginBottom: "10px",
-    color: "#ff6b35",
-  },
-  list: {
-    lineHeight: "1.9",
-    color: "#444",
-  },
+  cardTitle: { marginBottom: "10px", color: "#ff6b35" },
+  list: { lineHeight: "1.9", color: "#444" },
 };
 
 export default BuyersPage;
-

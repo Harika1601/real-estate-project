@@ -1,45 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const Contact = require("../models/contactModel");
+const Contact = require("../models/contact");
 
-// ================= CONTACT FORM =================
 router.post("/", async (req, res) => {
   try {
 
-    console.log("📡 POST /api/contact request received");
-    console.log("📞 Contact form submitted:", req.body);
-
     const { name, email, message } = req.body;
 
-    if (!name || !email || !message) {
-      console.log("❌ Missing fields");
-      return res.status(400).json({
-        message: "All fields are required",
-      });
-    }
-
-    const contact = new Contact({
+    const newContact = new Contact({
       name,
       email,
-      message,
+      message
     });
 
-    const savedContact = await contact.save();
+    await newContact.save();
 
-    console.log("✅ Contact saved in MongoDB:", savedContact._id);
-
-    res.status(201).json({
-      message: "Contact message saved",
-      data: savedContact,
+    res.status(200).json({
+      message: "Message saved successfully"
     });
 
   } catch (error) {
 
-    console.error("❌ Contact error:", error);
+    console.log(error);
 
     res.status(500).json({
-      message: "Server error",
+      message: "Server error"
     });
+
   }
 });
 

@@ -1,142 +1,91 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import Properties from "./properties";
 import "./Properties.css";
 
-const PropertyList = ({ properties }) => {
-  return (
-    <div className="property-list">
-      {properties.map((property) => (
-        <PropertyCard key={property.id} property={property} />
-      ))}
-    </div>
-  );
-};
+const PropertyList = () => {
 
-const PropertyCard = ({ property }) => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const navigate = useNavigate();
+return (
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % property.images.length);
-  };
+<div className="property-container">
 
-  const prevImage = () => {
-    setCurrentImage(
-      (prev) => (prev - 1 + property.images.length) % property.images.length
-    );
-  };
+{Properties.map((property)=> (
 
-  const handlePayment = () => {
-    navigate("/payment", {
-      state: { property },
-    });
-  };
+<div className="property-card" key={property.id}>
 
-  return (
-    <div className="property-card">
+{/* PROPERTY IMAGE */}
 
-      {/* IMAGE + DETAILS */}
-      <div className="property-row">
+<img
+src={property.images[0]}
+alt={property.title}
+className="property-image"
+/>
 
-        {/* LEFT SIDE */}
-        <div className="property-left">
+{/* BASIC DETAILS */}
 
-          {/* IMAGE */}
-          <div className="property-image-box">
-            <img
-              src={property.images[currentImage]}
-              alt={property.title}
-              className="property-image"
-            />
+<h2>{property.title}</h2>
 
-            {property.images.length > 1 && (
-              <>
-                <button className="prev-btn" onClick={prevImage}>
-                  &#10094;
-                </button>
+<p className="price">{property.price}</p>
 
-                <button className="next-btn" onClick={nextImage}>
-                  &#10095;
-                </button>
-              </>
-            )}
-          </div>
+<p>{property.address}</p>
 
-          {/* CONTACT BELOW IMAGE */}
-          <div className="image-contact">
-            <p><b>Contact:</b> Yash</p>
-            <p><b>Phone:</b> +91 9876543210</p>
-            <p><b>Email:</b> yash@gmail.com</p>
-          </div>
+<p><strong>{property.bhk}</strong></p>
 
-        </div>
+<p>{property.bathrooms}</p>
 
-        {/* RIGHT SIDE DETAILS */}
-        <div className="property-details">
+<p>{property.area}</p>
 
-          <div className="property-header">
-            <h2 className="property-title">{property.title}</h2>
-            <span className="price">{property.price}</span>
-          </div>
+<p>{property.age}</p>
 
-          <p className="address">{property.address}</p>
+<p><strong>Status:</strong> {property.status}</p>
 
-          <div className="details-grid">
+{/* DESCRIPTION */}
 
-            <div>
-              <span className="label">BHK</span>
-              <p>{property.bhk}</p>
-            </div>
+<p className="description">
+{property.description}
+</p>
 
-            <div>
-              <span className="label">Bathrooms</span>
-              <p>{property.bathrooms}</p>
-            </div>
+{/* PAYMENT OPTIONS */}
 
-            <div>
-              <span className="label">Area</span>
-              <p>{property.area}</p>
-            </div>
+<h4>Payment Options</h4>
 
-            <div>
-              <span className="label">Property Age</span>
-              <p>{property.age}</p>
-            </div>
+<ul>
+{property.paymentOptions.map((option,index)=>(
+<li key={index}>{option}</li>
+))}
+</ul>
 
-            <div>
-              <span className="label">Status</span>
-              <p>{property.status}</p>
-            </div>
+{/* CONTACT */}
 
-          </div>
+<h4>Contact</h4>
 
-          <p className="description">{property.description}</p>
+<p><strong>Name:</strong> {property.contact.name}</p>
+<p><strong>Phone:</strong> {property.contact.phone}</p>
+<p><strong>Email:</strong> {property.contact.email}</p>
 
-          <button className="payment-btn" onClick={handlePayment}>
-            💳 Buy / Pay Now
-          </button>
+{/* GOOGLE MAP */}
 
-        </div>
+<div className="map-container">
 
-      </div>
+<iframe
+title="map"
+width="100%"
+height="250"
+style={{border:0}}
+loading="lazy"
+allowFullScreen
+src={`https://www.google.com/maps?q=${encodeURIComponent(property.address)}&output=embed`}
+></iframe>
 
-      {/* GOOGLE MAP */}
-      <div className="map-container">
-        <iframe
-          title="map"
-          width="100%"
-          height="250"
-          style={{ border: 0, borderRadius: "10px" }}
-          loading="lazy"
-          allowFullScreen
-          src={`https://www.google.com/maps?q=${encodeURIComponent(
-            property.address
-          )}&output=embed`}
-        ></iframe>
-      </div>
+</div>
 
-    </div>
-  );
-};
+</div>
+
+))}
+
+</div>
+
+)
+
+}
 
 export default PropertyList;
